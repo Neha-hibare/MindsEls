@@ -335,8 +335,8 @@ class RestUserController @Inject() (
   
   //getStaffDetailById
   
-  def getStaffDetailById(user_contextid:Long) = Action.async { request =>
-    userService.getStaffDetailById(user_contextid).map { staffDetial =>
+  def getStaffDetailById(id:Long) = Action.async { request =>
+    userService.getStaffDetailById(id).map { staffDetial =>
       Ok(toJson(staffDetial))
     }
   }

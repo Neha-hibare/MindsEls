@@ -49,7 +49,7 @@ angular.module('theApp').factory(
 						AdminServiceAPI.getAllOrgs().then(function(response,callback){
 							var response3 = response.data;
 							callback(response3);
-							console.log('Admin service API called';)
+							console.log('Admin service API called');
 						});
 					}
 					

@@ -170,7 +170,7 @@ trait UserService extends IdentityService[User] {
   
   def getContextByUserId(id : Long) :UserContext  
   //getStaffDetailById
-  def getStaffDetailById(user_contextid : Long) : Future[StaffDetail]
+  def getStaffDetailById(id : Long) : Future[StaffDetail]
   
   // getStudentDetailsById(id)
   def getStudentDetailsById(id : Long) : Future[StudentDetail]

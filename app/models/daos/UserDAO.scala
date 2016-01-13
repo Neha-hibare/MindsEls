@@ -138,7 +138,7 @@ trait UserDAO {
    
    def getContextById(id : Long) : Context
    
-   def getStaffDetailById(user_contextid : Long) : StaffDetail
+   def getStaffDetailById(id: Long) : StaffDetail
    
    def getStudentDetailsById(id : Long) : StudentDetail
    

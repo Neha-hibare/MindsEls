@@ -393,8 +393,8 @@ class UserServiceImpl @Inject() (userDAO: UserDAO) extends UserService {
    }
    
    //getStaffDetailById
-    def getStaffDetailById(user_contextid : Long) : Future[StaffDetail] = Future {
-       userDAO.getStaffDetailById(user_contextid)
+    def getStaffDetailById(id : Long) : Future[StaffDetail] = Future {
+       userDAO.getStaffDetailById(id)
     }
     
     // getStudentDetailsById

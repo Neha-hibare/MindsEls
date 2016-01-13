@@ -152,7 +152,7 @@ class UserDAOImpl extends UserDAO {
 
  
     val UserSimple = {
-	  get[Long]("id") ~     
+    get[Long]("id") ~     
     get[String]("Firstname") ~
     get[Option[String]]("Firstname") ~
     get[Option[String]]("MiddleName") ~
@@ -1806,8 +1806,7 @@ val HolidaySimple = {
       println("UserDAOImpl.getGuardianUserById finished")
       gdu
     } 
-  }
-   
+  
    def getAllGuardianListByCampusId(cmId : Long) : List[GuardianUser]  = {
       DB.withConnection { implicit conn =>
       println("UserDAOImpl.getAllGuardianListByCampusId started")
@@ -2045,7 +2044,7 @@ val HolidaySimple = {
           `sd`.`vehicleId`
         FROM
           `user` `u`,`user_login` `ul`,`user_context` `uc`,`staff_details` `sd`,`context` `c`,`campus` `camp`,`organization` `org`, 
-          `vehicle_details` `vdl`,`subject_master` `sm`,`staff_subject_map` `ssm`, `term` `trm`
+           `subject_master` `sm`,`staff_subject_map` `ssm`, `term` `trm`
         WHERE
           `sd`.`user_id`= {user_id}
           AND `ul`.`user_id` = `u`.`id`
@@ -2248,14 +2247,44 @@ val HolidaySimple = {
    
    def getStaffDetailById(id : Long) : StaffDetail = DB.withConnection { implicit conn => 
      val sd = (SQL("""
-        SELECT
-          `sd`.`id`,   
+        SELECT DISTINCT
+          `u`.`id`,
+          `ul`.`email`,
+          `u`.`Firstname`,
+          `u`.`Lastname`,
+          `u`.`Middlename`,
+          `u`.`Address1`,
+          `u`.`Address2`,
+          `u`.`City`,
+          `u`.`State`,
+          `u`.`Deleted`,
+          `c`.`context`,          
           `sd`.`user_id`,
-          `sd`.`vehicleId`       
+          `sm`.`subjectName`,
+          `ul`.`phone_number`,
+          `camp`.`cmId`,
+          `camp`.`campus_name`,
+          `org`.`oId`,
+          `org`.`name`,
+          `sd`.`vehicleId`
         FROM
-          `staff_details` `sd`
+          `user` `u`,`user_login` `ul`,`campus` `camp`, `user_context` `uc`,`staff_details` `sd`,`context` `c`,
+          `organization` `org`,`vehicle_details` `vdl`,`subject_master` `sm`,`staff_subject_map` `ssm`,`term` `trm`
         WHERE
-          `sd`.`id` = {id}
+          `u`.`id` = 23
+        AND `trm`.`campus_id` = `camp`.`cmId`
+        AND `trm`.`active` = 1
+        AND `uc`.`context_id` = 5
+        AND `camp`.`cmId` = `uc`.`campus_id`
+        AND `u`.`id`= `uc`.`user_id`
+        AND `ul`.`user_id` = `uc`.`user_id`
+        AND `sd`.`user_id` = `uc`.`user_id`
+        AND `c`.`id` = `uc`.`context_id`
+        AND `camp`.`cmId` = `uc`.`campus_id`
+        AND `camp`.`organization_id` = `org`.`oId`
+        AND `vdl`.`campusId` = `uc`.`campus_id`
+        AND `ssm`.`userId` = `sd`.`user_id`
+        AND `sm`.`subId` = `ssm`.`subId`
       """).on('id -> id).as(StaffDetailsSimple singleOpt)).get
       println("UserDAOImpl.createStaffDetails finished")
       sd
@@ -2968,7 +2997,7 @@ def createAttendence(AttendenceDetails : AttendanceList) : AttendanceList = {
         FROM
           `vehicle_details` `vdl`,`campus` `cmp`,`vehicle_type` `vtyp`,`route_details` `rtd`
         WHERE
-    		  `cmp`.`cmId`={cmId}
+          `cmp`.`cmId`={cmId}
           AND `cmp`.`cmId`=`vdl`.`campusId`
           AND `rtd`.`Vehicle_id` =  `vdl`.`vdId`
       """).on('cmId -> cmId).as(VehilceDetailUserSimple *))
