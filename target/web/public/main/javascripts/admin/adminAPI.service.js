@@ -47,11 +47,22 @@
             service.GetbookListbyCampusID=GetbookListbyCampusID;
             service.getAllsubjects=getAllsubjects;
             service.Getassigmentdetailsbyclassid=Getassigmentdetailsbyclassid;
+
+            service.getStaffUserById = getStaffUserById;
+
             return service;
             
           
             
             //Post Service 
+
+
+            function getStaffUserById(staffId) 
+            {       
+            console.log("Inside admin.staff.controller.js calling getStaffDetailsById api "+staffId);
+            return $http.get('auth/getStaffUserById/'+staffId).then(handleSuccess, handleError('Error Fetching Staff Details by Staff Id'));
+            } 
+            
             
             function createNewStudent(user) 
             {           	
@@ -156,6 +167,7 @@
             }
             
             function GetnewslistbyCampusId(campusid) {
+                
                 return $http.get('/auth/getSchoolNewsListByCampusId/'+campusid).then(handleSuccess, handleError('Error getting News Information List details'));
             }
             
