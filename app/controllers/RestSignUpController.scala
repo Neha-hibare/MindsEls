@@ -203,7 +203,7 @@ class RestSignUpController @Inject() (
               println(s"yield2")
               env.eventBus.publish(LoginEvent(user, request, request2lang))
               println(s"yield3")
-              val response = Ok(toJson(MsgOK("You have been signed up succesfully.", Json.obj(
+              val response = Ok(Json.toJson(MsgOK("You have been signed up succesfully.", Json.obj(
                 "session" -> Token(token = authenticator.id, expiresOn = authenticator.expirationDate),
                 "user" -> user))))
               env.authenticatorService.init(authenticator, Future.successful(response.withCookies(Cookie("XSRF-TOKEN",authenticator.id))))

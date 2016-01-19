@@ -18,6 +18,7 @@ appServices.service('UIMessage', function() {
 	this.message = function(message, status) {
 		if (status.success) {
 			this.success(message)
+			console.log("success messages from sservice.js"+message);
 		} else {
 			this.error(message)
 		}

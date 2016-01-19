@@ -48,7 +48,7 @@
             service.getAllsubjects=getAllsubjects;
             service.Getassigmentdetailsbyclassid=Getassigmentdetailsbyclassid;
 
-            service.getStaffDetailsById = getStaffDetailsById;
+            service.getStaffUserById = getStaffUserById;
 
             return service;
             
@@ -57,10 +57,10 @@
             //Post Service 
 
 
-            function getStaffDetailsById(staffId) 
+            function getStaffUserById(staffId) 
             {       
             console.log("Inside admin.staff.controller.js calling getStaffDetailsById api "+staffId);
-            return $http.get('auth/getStaffDetailsById/'+staffId).then(handleSuccess, handleError('Error Fetching Staff Details by Staff Id'));
+            return $http.get('auth/getStaffUserById/'+staffId).then(handleSuccess, handleError('Error Fetching Staff Details by Staff Id'));
             } 
             
             

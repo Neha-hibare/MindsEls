@@ -1,8 +1,9 @@
+
 'use strict';
 
 /* App Module */
 
-var theApp = angular.module('theApp', [ 'ngRoute', 'appControllers',
+var theApp = angular.module('theApp', [ 'ngRoute', 'appControllers', 'ngMessages',
 		'appDirectives', 'appServices', 'appConstants', 'ui.router','angularUtils.directives.dirPagination' ]);
 
 /*
@@ -381,6 +382,42 @@ theApp
 									{
 										templateUrl : '/assets/partial-html-app/admin/staff/staffprofile.html',
 										controller : 'NewLoginController'
+									})
+
+						/*	.state(
+									'staffEdit',
+									{
+										templateUrl : '/assets/partial-html-app/admin/staff/staffedit.html',
+										
+									})*/
+								
+
+							.state("staffEdit", {
+								
+								    templateUrl: '/assets/partial-html-app/admin/staff/staffedit.html',
+								    params : { staffID: null },
+								 controller: 'AdminStaffEditController'
+
+								/* function($scope, $stateParams, AdminPostService) {
+							            $scope.campusId = $stateParams.campusId;
+										 $scope.staffId = $stateParams.staffId; 
+										 console.log("$stateParams.staffId   "+$stateParams.staffId);
+							            ///auth/getStaffDetailsById/:id	
+							            console.log("inside app.js calling AdminPostService.getStaffByStaffId");
+							            AdminPostService.getStaffByStaffId($scope.staffId,function(response){
+								       	  	$scope.staffProfileDetails = response;
+								       	  	return response;
+								       	  	console.log("staffprofileDetails"+staffProfileDetails);
+								       	  
+								       	  	});	   
+							        }*/
+							})	
+							.state(
+									'StaffDelete',
+									{
+										templateUrl : '/assets/partial-html-app/admin/staff/staffdelete.html',
+										params : { staffID: null },
+								 controller: 'AdminStaffEditController'
 									})
 
 							.state(

@@ -114,6 +114,7 @@ appControllers.controller('AppCtrl', [ '$scope', '$rootScope', '$location', 'USE
 				Auth.getStaffDetails().then(function(r) {
 					//$rootScope.$broadcast(AUTH_EVENTS);
 					UIMessage.success(r.data.message);
+					console.log("getStaffDetails from controller"+ r.data.message);
 					$location.path('/login').replace();
 				}, function(res) {
 					UIMessage.error(res.data.message);
@@ -179,6 +180,7 @@ appControllers.controller('AppCtrl', [ '$scope', '$rootScope', '$location', 'USE
 				Auth.getStaffUserListByCampusId().then(function(r) {
 					//$rootScope.$broadcast(AUTH_EVENTS);
 					UIMessage.success(r.data.message);
+					console.log("get staff details by id from controller"+ r.data.message);
 					$location.path('/login').replace();
 				}, function(res) {
 					UIMessage.error(res.data.message);

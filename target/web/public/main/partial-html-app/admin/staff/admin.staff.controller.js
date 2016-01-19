@@ -13,8 +13,9 @@
 							'$http',
 							'AdminPostService',
 							'AdminServiceAPI',
+							'$stateParams',
 							function($location, $rootScope, $scope, $http,
-									AdminPostService, AdminServiceAPI) {
+									AdminPostService, AdminServiceAPI,$stateParams) {
 
 								$scope.StaffFormDisplay = false;
 

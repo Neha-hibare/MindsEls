@@ -1806,7 +1806,8 @@ val HolidaySimple = {
       println("UserDAOImpl.getGuardianUserById finished")
       gdu
     } 
-  
+  }
+   
    def getAllGuardianListByCampusId(cmId : Long) : List[GuardianUser]  = {
       DB.withConnection { implicit conn =>
       println("UserDAOImpl.getAllGuardianListByCampusId started")
@@ -2247,44 +2248,14 @@ val HolidaySimple = {
    
    def getStaffDetailById(id : Long) : StaffDetail = DB.withConnection { implicit conn => 
      val sd = (SQL("""
-        SELECT DISTINCT
-          `u`.`id`,
-          `ul`.`email`,
-          `u`.`Firstname`,
-          `u`.`Lastname`,
-          `u`.`Middlename`,
-          `u`.`Address1`,
-          `u`.`Address2`,
-          `u`.`City`,
-          `u`.`State`,
-          `u`.`Deleted`,
-          `c`.`context`,          
+        SELECT
+          `sd`.`id`,   
           `sd`.`user_id`,
-          `sm`.`subjectName`,
-          `ul`.`phone_number`,
-          `camp`.`cmId`,
-          `camp`.`campus_name`,
-          `org`.`oId`,
-          `org`.`name`,
-          `sd`.`vehicleId`
+          `sd`.`vehicleId`       
         FROM
-          `user` `u`,`user_login` `ul`,`campus` `camp`, `user_context` `uc`,`staff_details` `sd`,`context` `c`,
-          `organization` `org`,`vehicle_details` `vdl`,`subject_master` `sm`,`staff_subject_map` `ssm`,`term` `trm`
+          `staff_details` `sd`
         WHERE
-          `u`.`id` = 23
-        AND `trm`.`campus_id` = `camp`.`cmId`
-        AND `trm`.`active` = 1
-        AND `uc`.`context_id` = 5
-        AND `camp`.`cmId` = `uc`.`campus_id`
-        AND `u`.`id`= `uc`.`user_id`
-        AND `ul`.`user_id` = `uc`.`user_id`
-        AND `sd`.`user_id` = `uc`.`user_id`
-        AND `c`.`id` = `uc`.`context_id`
-        AND `camp`.`cmId` = `uc`.`campus_id`
-        AND `camp`.`organization_id` = `org`.`oId`
-        AND `vdl`.`campusId` = `uc`.`campus_id`
-        AND `ssm`.`userId` = `sd`.`user_id`
-        AND `sm`.`subId` = `ssm`.`subId`
+          `sd`.`id` = {id}
       """).on('id -> id).as(StaffDetailsSimple singleOpt)).get
       println("UserDAOImpl.createStaffDetails finished")
       sd
